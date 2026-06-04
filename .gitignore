@@ -1,6 +1,9 @@
 .venv/
-**pycache**/
+__pycache__/
 *.pyc
+
+memory/cache/
 logs/
 design_os.db
+
 .env
