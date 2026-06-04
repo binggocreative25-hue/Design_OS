@@ -4,6 +4,7 @@ __pycache__/
 
 memory/cache/
 logs/
+
 design_os.db
 
 .env
