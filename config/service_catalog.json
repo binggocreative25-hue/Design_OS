@@ -1,0 +1,71 @@
+{
+  "logo_design": {
+    "local": {
+      "basic": 500000,
+      "standard": 1500000,
+      "premium": 3000000
+    },
+
+    "international": {
+      "basic": 150,
+      "standard": 350,
+      "premium": 750
+    }
+  },
+
+  "brand_identity": {
+    "local": {
+      "basic": 2000000,
+      "standard": 5000000,
+      "premium": 10000000
+    },
+
+    "international": {
+      "basic": 300,
+      "standard": 750,
+      "premium": 1500
+    }
+  },
+
+  "social_media_design": {
+    "local": {
+      "basic": 300000,
+      "standard": 750000,
+      "premium": 1500000
+    },
+
+    "international": {
+      "basic": 30,
+      "standard": 75,
+      "premium": 150
+    }
+  },
+
+  "packaging_design": {
+    "local": {
+      "basic": 1000000,
+      "standard": 3000000,
+      "premium": 6000000
+    },
+
+    "international": {
+      "basic": 150,
+      "standard": 450,
+      "premium": 900
+    }
+  },
+
+  "poster_design": {
+    "local": {
+      "basic": 300000,
+      "standard": 1000000,
+      "premium": 2000000
+    },
+
+    "international": {
+      "basic": 50,
+      "standard": 150,
+      "premium": 300
+    }
+  }
+}

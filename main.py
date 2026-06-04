@@ -1,0 +1,724 @@
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+
+from utils.settings import settings
+from memory.database import Database
+
+from agents.director_agent import DirectorAgent
+from agents.pricing_agent import PricingAgent
+
+from memory.context_manager import (
+    ContextManager
+)
+
+from memory.history_manager import (
+    HistoryManager
+)
+
+from memory.client_manager import (
+    ClientManager
+)
+
+from models.project_context import (
+    ProjectContext
+)
+
+from utils.currency_formatter import (
+    CurrencyFormatter
+)
+
+console = Console()
+
+
+def print_header():
+
+    console.print()
+
+    console.print(
+        Panel.fit(
+            "[bold cyan]DESIGN OS[/bold cyan]\n"
+            "Autonomous Design Assistant",
+            border_style="cyan"
+        )
+    )
+
+    console.print()
+
+
+def show_pricing(pricing):
+
+    local_table = Table(
+        title="Harga Lokal"
+    )
+
+    local_table.add_column(
+        "Paket"
+    )
+
+    local_table.add_column(
+        "Harga"
+    )
+
+    local_table.add_row(
+        "Basic",
+        CurrencyFormatter.idr(
+            pricing.local_price["basic"]
+        )
+    )
+
+    local_table.add_row(
+        "Standard",
+        CurrencyFormatter.idr(
+            pricing.local_price["standard"]
+        )
+    )
+
+    local_table.add_row(
+        "Premium",
+        CurrencyFormatter.idr(
+            pricing.local_price["premium"]
+        )
+    )
+
+    console.print(
+        local_table
+    )
+
+    international_table = Table(
+        title="Harga Internasional"
+    )
+
+    international_table.add_column(
+        "Paket"
+    )
+
+    international_table.add_column(
+        "Harga"
+    )
+
+    international_table.add_row(
+        "Basic",
+        CurrencyFormatter.usd(
+            pricing.international_price[
+                "basic"
+            ]
+        )
+    )
+
+    international_table.add_row(
+        "Standard",
+        CurrencyFormatter.usd(
+            pricing.international_price[
+                "standard"
+            ]
+        )
+    )
+
+    international_table.add_row(
+        "Premium",
+        CurrencyFormatter.usd(
+            pricing.international_price[
+                "premium"
+            ]
+        )
+    )
+
+    console.print(
+        international_table
+    )
+
+    summary = Table(
+        title="Rekomendasi Harga"
+    )
+
+    summary.add_column(
+        "Item"
+    )
+
+    summary.add_column(
+        "Nilai"
+    )
+
+    summary.add_row(
+        "Segment",
+        pricing.market_segment
+    )
+
+    summary.add_row(
+        "Complexity Score",
+        str(
+            pricing.complexity_score
+        )
+    )
+
+    summary.add_row(
+        "Recommended Package",
+        pricing.recommended_package
+    )
+
+    summary.add_row(
+        "Negotiation Floor",
+        CurrencyFormatter.idr(
+            pricing.negotiation_floor
+        )
+    )
+
+    summary.add_row(
+        "Target Price",
+        CurrencyFormatter.idr(
+            pricing.target_price
+        )
+    )
+
+    summary.add_row(
+        "Ceiling Price",
+        CurrencyFormatter.idr(
+            pricing.ceiling_price
+        )
+    )
+
+    console.print(
+        summary
+    )
+
+
+def show_analytics(
+    analytics
+):
+
+    console.print()
+
+    console.print(
+        Panel(
+            f"Total Projects : {analytics['total_projects']}",
+            title="Analytics",
+            border_style="cyan"
+        )
+    )
+
+    workflow_table = Table(
+        title="Top Workflows"
+    )
+
+    workflow_table.add_column(
+        "Workflow"
+    )
+
+    workflow_table.add_column(
+        "Count"
+    )
+
+    for workflow, count in analytics[
+        "top_workflows"
+    ]:
+
+        workflow_table.add_row(
+            str(workflow),
+            str(count)
+        )
+
+    console.print(
+        workflow_table
+    )
+
+    project_table = Table(
+        title="Top Project Types"
+    )
+
+    project_table.add_column(
+        "Project Type"
+    )
+
+    project_table.add_column(
+        "Count"
+    )
+
+    for project_type, count in analytics[
+        "top_project_types"
+    ]:
+
+        project_table.add_row(
+            str(project_type),
+            str(count)
+        )
+
+    console.print(
+        project_table
+    )
+
+    category_table = Table(
+        title="Top Categories"
+    )
+
+    category_table.add_column(
+        "Category"
+    )
+
+    category_table.add_column(
+        "Count"
+    )
+
+    for category, count in analytics[
+        "top_categories"
+    ]:
+
+        category_table.add_row(
+            str(category),
+            str(count)
+        )
+
+    console.print(
+        category_table
+    )
+
+    console.print()
+
+
+def show_client(
+    client,
+    projects,
+    intelligence
+):
+
+    table = Table(
+        title=f"Client : {client[0]}"
+    )
+
+    table.add_column(
+        "Field"
+    )
+
+    table.add_column(
+        "Value"
+    )
+
+    table.add_row(
+        "Country",
+        str(client[1])
+    )
+
+    table.add_row(
+        "Industry",
+        str(client[2])
+    )
+
+    table.add_row(
+        "Notes",
+        str(client[3])
+    )
+
+    table.add_row(
+        "Projects",
+        str(
+            intelligence[
+                "total_projects"
+            ]
+        )
+    )
+
+    table.add_row(
+        "Unique Projects",
+        str(
+            intelligence[
+                "unique_projects"
+            ]
+        )
+    )
+
+    table.add_row(
+        "Preferred Category",
+        intelligence[
+            "preferred_category"
+        ]
+    )
+
+    table.add_row(
+        "Most Used Workflow",
+        intelligence[
+            "most_used_workflow"
+        ]
+    )
+
+    table.add_row(
+        "First Seen",
+        intelligence[
+            "first_seen"
+        ]
+    )
+
+    table.add_row(
+        "Last Seen",
+        intelligence[
+            "last_seen"
+        ]
+    )
+
+    console.print(
+        table
+    )
+
+    if projects:
+
+        project_table = Table(
+            title="Recent Projects"
+        )
+
+        project_table.add_column(
+            "Brief"
+        )
+
+        project_table.add_column(
+            "Workflow"
+        )
+
+        project_table.add_column(
+            "Category"
+        )
+
+        for project in projects[:10]:
+
+            project_table.add_row(
+                str(project[0]),
+                str(project[1]),
+                str(project[2])
+            )
+
+        console.print(
+            project_table
+        )
+
+    if intelligence[
+        "top_tags"
+    ]:
+
+        tag_table = Table(
+            title="Top Tags"
+        )
+
+        tag_table.add_column(
+            "Tag"
+        )
+
+        for tag in intelligence[
+            "top_tags"
+        ]:
+
+            tag_table.add_row(
+                tag
+            )
+
+        console.print(
+            tag_table
+        )
+
+    console.print()
+
+
+
+
+def show_recommendations(
+    client_name,
+    recommendations
+):
+
+    table = Table(
+        title=f"Recommended Services : {client_name}"
+    )
+
+    table.add_column(
+        "Service"
+    )
+
+    table.add_column(
+        "Score"
+    )
+
+    for service, score in recommendations[
+        "recommendations"
+    ]:
+
+        table.add_row(
+            str(service),
+            str(score)
+        )
+
+    console.print(
+        table
+    )
+
+    console.print(
+        Panel(
+            f"Upsell Score : {recommendations['upsell_score']}",
+            title="Client Recommendation",
+            border_style="green"
+        )
+    )
+
+    console.print()
+
+
+def run():
+
+    db = Database(
+        settings.DATABASE_PATH
+    )
+
+    director = DirectorAgent()
+
+    pricing_agent = PricingAgent()
+
+    context_manager = ContextManager()
+
+    history_manager = HistoryManager()
+
+    client_manager = ClientManager()
+
+    print_header()
+
+    console.print(
+        "[green]Database Connected[/green]"
+    )
+
+    console.print()
+
+    while True:
+
+        brief = console.input(
+            "[bold cyan]Design Brief > [/bold cyan]"
+        )
+
+        if brief.lower() in [
+            "exit",
+            "quit"
+        ]:
+            break
+
+        #
+        # PHASE 2C
+        #
+
+        if brief.lower().startswith(
+            "show client "
+        ):
+
+            client_name = (
+                brief
+                .replace(
+                    "show client ",
+                    ""
+                )
+                .strip()
+                .upper()
+            )
+
+            client = (
+                client_manager.get_client(
+                    client_name
+                )
+            )
+
+            if client:
+
+                projects = (
+                    client_manager.get_client_projects(
+                        client_name
+                    )
+                )
+
+                intelligence = (
+                    client_manager.get_client_intelligence(
+                        client_name
+                    )
+                )
+
+                show_client(
+                    client,
+                    projects,
+                    intelligence
+                )
+
+            else:
+
+                console.print(
+                    "[yellow]Client tidak ditemukan[/yellow]"
+                )
+
+            continue
+
+
+        if brief.lower().startswith(
+            "recommend client "
+        ):
+
+            client_name = (
+                brief
+                .replace(
+                    "recommend client ",
+                    ""
+                )
+                .strip()
+                .upper()
+            )
+
+            recommendations = (
+                client_manager.recommend_services(
+                    client_name
+                )
+            )
+
+            if recommendations:
+
+                show_recommendations(
+                    client_name,
+                    recommendations
+                )
+
+            else:
+
+                console.print(
+                    "[yellow]Client tidak ditemukan[/yellow]"
+                )
+
+            continue
+
+
+        if brief.lower() == "analytics":
+
+            analytics = (
+                history_manager.get_analytics()
+            )
+
+            show_analytics(
+                analytics
+            )
+
+            continue
+
+        if brief.lower().startswith(
+            "lanjutkan"
+        ):
+
+            project = (
+                history_manager.find_project(
+                    brief
+                )
+            )
+
+            console.print()
+
+            if project:
+
+                console.print(
+                    "[green]Project Found[/green]"
+                )
+
+                console.print(
+                    f"Brief : {project[0]}"
+                )
+
+                console.print(
+                    f"Workflow : {project[1]}"
+                )
+
+                console.print(
+                    f"Project Type : {project[2]}"
+                )
+
+                console.print(
+                    f"Category : {project[6]}"
+                )
+
+                console.print(
+                    f"Tags : {project[7]}"
+                )
+
+            else:
+
+                console.print(
+                    "[yellow]Project tidak ditemukan[/yellow]"
+                )
+
+            console.print()
+
+            continue
+
+        detected_client = (
+            client_manager
+            .save_client_if_needed(
+                brief
+            )
+        )
+
+        if detected_client:
+
+            console.print(
+                f"[cyan]Client Saved:[/cyan] {detected_client}"
+            )
+
+        result = director.analyze_brief(
+            brief
+        )
+
+        context = ProjectContext(
+            project_type=result.project_type,
+            client_goal=result.client_goal,
+            target_audience=result.target_audience,
+            creative_direction=result.creative_direction,
+            workflow=result.workflow
+        )
+
+        context_manager.save_project_context(
+            context
+        )
+
+        history_manager.save_project(
+            brief,
+            result
+        )
+
+        loaded_context = (
+            context_manager.load_project_context()
+        )
+
+        console.print(
+            "\n[green]Context Loaded[/green]"
+        )
+
+        console.print(
+            loaded_context
+        )
+
+        console.print()
+
+        console.print(
+            Panel(
+                result.workflow,
+                title="Workflow",
+                border_style="green"
+            )
+        )
+
+        console.print_json(
+            data=result.model_dump()
+        )
+
+        pricing = pricing_agent.generate_price(
+            project_type=result.project_type,
+            client_goal=result.client_goal,
+            target_audience=result.target_audience
+        )
+
+        console.print()
+
+        show_pricing(
+            pricing
+        )
+
+        console.print()
+
+    db.close()
+
+
+if __name__ == "__main__":
+    run()

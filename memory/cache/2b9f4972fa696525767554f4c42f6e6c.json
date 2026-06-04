@@ -1,0 +1,3 @@
+{
+    "response": "Mohon berikan detail kebutuhan proyek Anda. Tanpa informasi proyek, saya tidak dapat melakukan analisis dan memberikan arahan kreatif yang spesifik.\n\nNamun, sesuai instruksi untuk mengembalikan JSON valid, dan karena tidak ada kebutuhan proyek yang diberikan, saya akan mengembalikan JSON dengan nilai kosong dan alur kerja paling awal yang mungkin.\n\n```json\n{\n    \"project_type\":\"\",\n    \"client_goal\":\"\",\n    \"target_audience\":\"\",\n    \"creative_direction\":\"\",\n    \"workflow\":\"PROSPECTING\"\n}\n```"
+}

@@ -1,0 +1,21 @@
+{
+  "indonesia": {
+    "currency": "IDR",
+    "multiplier": 1.0
+  },
+
+  "singapore": {
+    "currency": "SGD",
+    "multiplier": 2.5
+  },
+
+  "australia": {
+    "currency": "AUD",
+    "multiplier": 2.8
+  },
+
+  "united_states": {
+    "currency": "USD",
+    "multiplier": 3.0
+  }
+}

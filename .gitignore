@@ -1,0 +1,6 @@
+.venv/
+**pycache**/
+*.pyc
+logs/
+design_os.db
+.env
