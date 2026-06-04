@@ -3,10 +3,13 @@ from rich.panel import Panel
 from rich.table import Table
 
 from utils.settings import settings
+from commands.router import CommandRouter
 from memory.database import Database
 
 from agents.director_agent import DirectorAgent
 from agents.pricing_agent import PricingAgent
+
+
 
 from memory.context_manager import (
     ContextManager
@@ -526,7 +529,8 @@ def run():
         # PHASE 2E
         #
 
-        if brief.lower().startswith(
+        if CommandRouter.is_command(
+            brief,
             "note client "
         ):
 
@@ -560,7 +564,8 @@ def run():
 
             continue
         
-        if brief.lower().startswith(
+        if CommandRouter.is_command(
+            brief,
             "show client "
         ):
 
@@ -616,9 +621,7 @@ def run():
             continue
 
 
-        if brief.lower().startswith(
-            "recommend client "
-        ):
+        if CommandRouter.is_command(brief, "recommend client"):
 
             client_name = (
                 brief
