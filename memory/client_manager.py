@@ -1,5 +1,6 @@
 import re
 from collections import Counter
+from datetime import datetime
 
 from memory.database import Database
 
@@ -386,3 +387,61 @@ class ClientManager:
             "recommendations":
                 recommendations
         }
+    
+    #
+    # PHASE 2E
+    # CLIENT RELATIONSHIP MEMORY
+    #
+
+    def add_client_note(
+        self,
+        client_name: str,
+        note: str
+    ):
+
+        cursor = (
+            self.db.connection.cursor()
+        )
+
+        cursor.execute(
+            """
+            INSERT INTO client_notes (
+                client_name,
+                note,
+                created_at
+            )
+            VALUES (?, ?, ?)
+            """,
+            (
+                client_name.upper(),
+                note,
+                datetime.now().isoformat()
+            )
+        )
+
+        self.db.connection.commit()
+
+    def get_client_notes(
+        self,
+        client_name: str
+    ):
+
+        cursor = (
+            self.db.connection.cursor()
+        )
+
+        cursor.execute(
+            """
+            SELECT
+                note,
+                created_at
+            FROM client_notes
+            WHERE client_name = ?
+            ORDER BY id DESC
+            """,
+            (
+                client_name.upper(),
+            )
+        )
+
+        return cursor.fetchall()

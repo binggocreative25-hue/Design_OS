@@ -40,6 +40,14 @@ CREATE TABLE IF NOT EXISTS project_history (
     tags TEXT,
     created_at TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS client_notes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_name TEXT NOT NULL,
+    note TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+
 """
 
 

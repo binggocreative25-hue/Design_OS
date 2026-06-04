@@ -278,7 +278,8 @@ def show_analytics(
 def show_client(
     client,
     projects,
-    intelligence
+    intelligence,
+    notes
 ):
 
     table = Table(
@@ -411,10 +412,33 @@ def show_client(
         console.print(
             tag_table
         )
-
+        
     console.print()
 
+    if notes:
 
+        note_table = Table(
+            title="Client Notes"
+        )
+
+        note_table.add_column(
+            "Note"
+        )
+
+        note_table.add_column(
+            "Created"
+        )
+
+        for note in notes:
+
+            note_table.add_row(
+                str(note[0]),
+                str(note[1])
+            )
+
+        console.print(
+            note_table
+        )
 
 
 def show_recommendations(
@@ -498,6 +522,44 @@ def run():
         # PHASE 2C
         #
 
+                #
+        # PHASE 2E
+        #
+
+        if brief.lower().startswith(
+            "note client "
+        ):
+
+            parts = brief.split()
+
+            if len(parts) < 4:
+
+                console.print(
+                    "[yellow]Format: note client <nama> <catatan>[/yellow]"
+                )
+
+                continue
+
+            client_name = (
+                parts[2]
+                .upper()
+            )
+
+            note = " ".join(
+                parts[3:]
+            )
+
+            client_manager.add_client_note(
+                client_name,
+                note
+            )
+
+            console.print(
+                f"[green]Note saved for {client_name}[/green]"
+            )
+
+            continue
+        
         if brief.lower().startswith(
             "show client "
         ):
@@ -532,10 +594,17 @@ def run():
                     )
                 )
 
+                notes = (
+                    client_manager.get_client_notes(
+                        client_name
+                    )
+                )
+
                 show_client(
                     client,
                     projects,
-                    intelligence
+                    intelligence,
+                    notes
                 )
 
             else:
