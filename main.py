@@ -620,6 +620,55 @@ def run():
 
             continue
 
+        if CommandRouter.is_command(
+            brief,
+            "continue client "
+        ):
+
+            client_name = (
+                brief
+                .replace(
+                    "continue client ",
+                    ""
+                )
+                .strip()
+                .upper()
+            )
+
+            project = (
+                client_manager.get_client_last_project(
+                    client_name
+                )
+            )
+
+            if not project:
+
+                console.print(
+                    f"[red]No project found for {client_name}[/red]"
+                )
+
+                continue
+
+            console.print()
+
+            console.print(
+                Panel.fit(
+                    (
+                        f"[bold]Client[/bold] : {client_name}\n\n"
+                        f"[bold]Last Project[/bold]\n"
+                        f"{project['brief']}\n\n"
+                        f"[bold]Workflow[/bold]\n"
+                        f"{project['workflow']}\n\n"
+                        f"[bold]Recommended Next Steps[/bold]\n"
+                        f"1. Brand Guideline\n"
+                        f"2. Company Profile\n"
+                        f"3. Social Media Kit"
+                    ),
+                    title="Project Continuation"
+                )
+            )
+
+            continue
 
         if CommandRouter.is_command(brief, "recommend client"):
 

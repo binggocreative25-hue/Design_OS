@@ -445,3 +445,40 @@ class ClientManager:
         )
 
         return cursor.fetchall()
+    
+        #
+    # PHASE 3A
+    # PROJECT CONTINUATION INTELLIGENCE
+    #
+
+    def get_client_last_project(
+        self,
+        client_name: str
+    ):
+
+        cursor = self.db.connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT
+                brief,
+                workflow,
+                category
+            FROM project_history
+            WHERE LOWER(tags) LIKE ?
+            ORDER BY id DESC
+            LIMIT 1
+            """,
+            (f"%{client_name.lower()}%",)
+        )
+
+        row = cursor.fetchone()
+
+        if not row:
+            return None
+
+        return {
+            "brief": row[0],
+            "workflow": row[1],
+            "category": row[2]
+        }
