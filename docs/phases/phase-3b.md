@@ -34,7 +34,7 @@ Test:
 
 Result:
 
-PASS / FAIL
+PASS
 
 
 Tag:

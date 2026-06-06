@@ -1,0 +1,41 @@
+# Phase 3C Service Recommendation
+
+Goal:
+
+Membangun sistem rekomendasi layanan otomatis berdasarkan histori client, client intelligence, project intelligence, relationship memory, dan client scoring.
+
+Sistem dapat memberikan rekomendasi layanan yang paling relevan untuk meningkatkan peluang repeat order dan upselling.
+
+Files:
+
+* models/service_recommendation.py
+* memory/service_recommendation.py
+* docs/tests/test_service_recommendation.md
+
+Features:
+
+* Intelligent Service Recommendation
+* Client Score Based Recommendation
+* Preferred Category Analysis
+* Upsell Opportunity Detection
+* Cross-Sell Opportunity Detection
+* Recommendation Reason Generator
+* Recommend Client Command
+* Service Recommendation Ranking
+
+Test:
+
+* Recommend services for high score clients
+* Recommend services for low score clients
+* Validate upsell recommendations
+* Validate cross-sell recommendations
+* Validate recommendation reasons
+* Validate command integration
+
+Result:
+
+PASS / FAIL
+
+
+Tag:
+phase-3c
