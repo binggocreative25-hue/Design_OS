@@ -450,7 +450,28 @@ class ClientManager:
     # PHASE 3A
     # PROJECT CONTINUATION INTELLIGENCE
     #
+    def get_all_clients(self):
 
+        cursor = (
+            self.db.connection.cursor()
+        )
+
+        cursor.execute(
+            """
+            SELECT
+                client_name
+            FROM clients
+            ORDER BY client_name
+            """
+        )
+
+        rows = cursor.fetchall()
+
+        return [
+            row[0]
+            for row in rows
+        ]
+    
     def get_client_last_project(
         self,
         client_name: str

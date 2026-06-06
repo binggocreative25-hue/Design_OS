@@ -551,6 +551,37 @@ def show_client_score(score):
 
     console.print()
 
+def show_client_ranking(
+    ranking
+):
+
+    table = Table(
+        title="Top Clients"
+    )
+
+    table.add_column("Rank")
+    table.add_column("Client")
+    table.add_column("Score")
+    table.add_column("Tier")
+
+    for index, client in enumerate(
+        ranking,
+        start=1
+    ):
+
+        table.add_row(
+            str(index),
+            client.client_name,
+            str(client.score),
+            client.tier
+        )
+
+    console.print(
+        table
+    )
+
+    console.print()
+
 def run():
 
     db = Database(
@@ -685,6 +716,18 @@ def run():
                 console.print(
                     "[yellow]Client tidak ditemukan[/yellow]"
                 )
+
+            continue
+
+        if brief.lower() == "top clients":
+
+            ranking = (
+                client_scoring.get_client_ranking()
+            )
+
+            show_client_ranking(
+                ranking
+            )
 
             continue
 

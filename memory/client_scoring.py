@@ -3,7 +3,39 @@ from memory.client_manager import ClientManager
 
 
 class ClientScoring:
+    def get_client_ranking(self):
 
+        ranking = []
+
+        clients = (
+            self.client_manager.get_all_clients()
+        )
+
+        for client_name in clients:
+
+            try:
+
+                score = (
+                    self.calculate_score(
+                        client_name
+                    )
+                )
+
+                ranking.append(
+                    score
+                )
+
+            except Exception:
+
+                continue
+
+        ranking.sort(
+            key=lambda item: item.score,
+            reverse=True
+        )
+
+        return ranking
+    
     def __init__(self):
 
         self.client_manager = ClientManager()
