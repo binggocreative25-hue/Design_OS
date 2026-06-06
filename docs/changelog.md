@@ -21,4 +21,11 @@ phase-3a PART A
 ## phase-3a
 phase-3a PART B
 ✅ continue client mfi berhasil
-✅ main.py compile dan run sukses
+✅ main.py compile dan run sukses 
+
+## phase-3a
+phase-3a PROJECT INTELLIGENCE
+
+PASS
+
+## phase-3b
