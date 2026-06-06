@@ -1,4 +1,4 @@
-# Phase 3.2 Context-Aware Memory
+# Phase 3A.2 Context-Aware Memory
 
 ✓ SQLite bekerja
 ✓ ContextManager bekerja
@@ -23,5 +23,5 @@ Result:
 PASS
 
 Tag:
-phase-3.2
+phase-3A.2
 (belum mulai connect repository github)

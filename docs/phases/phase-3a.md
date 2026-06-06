@@ -1,11 +1,16 @@
 # Phase 3A Project Intelligence
 
 Goal:
-Director Agent
-↓
-Pricing Agent
-↓
-Creative Strategist Agent
+AI mulai memahami:
+
+project yang sedang dikerjakan
+revisi sebelumnya
+preferensi client
+harga sebelumnya
+service yang pernah dibeli
+status project
+
+tanpa user mengulang informasi.
 
 Files:
 - memory/client_manager.py

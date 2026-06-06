@@ -1,4 +1,4 @@
-# Phase 3.2A AI Failover System
+# Phase 3A.2A AI Failover System
 
 Gemini quota habis
 ↓
@@ -29,5 +29,5 @@ Result:
 PASS
 
 Tag:
-phase-3.2
+phase-3A.2A
 (belum mulai connect repository github)

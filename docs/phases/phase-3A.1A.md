@@ -1,4 +1,4 @@
-# Phase 3.1A Smart Fallback Router
+# Phase 3A.1A Smart Fallback Router
 
 Multi model fallback
 Retry 429
@@ -21,5 +21,5 @@ Result:
 PASS
 
 Tag:
-phase-3.1A
+phase-3A.1A
 (belum mulai connect repository github)

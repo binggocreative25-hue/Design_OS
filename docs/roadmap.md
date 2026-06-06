@@ -22,23 +22,21 @@ PHASE 2F Command Architecture
 ____________________________________________________________________________
 PHASE 3A Project Intelligence
 
-PHASE 3.1 Project Context Engine
+PHASE 3A.1 Project Context Engine
 
-Phase 3.1A Smart Fallback Router
+Phase 3A.1A Smart Fallback Router
 
-PHASE 3.1B — RETRY 429
+PHASE 3A.2 Context-Aware Memory
 
-PHASE 3.1B-UPDATE — AI Call Audit
+PHASE 3A.2A AI Failover System
 
-PHASE 3.1C — CACHE AI
+PHASE 3A.3 — RETRY 429
 
-PHASE 3.1D — CONTEXT MEMORY
+PHASE 3A.3.A — AI Call Audit
 
-PHASE 3.2 Context-Aware Memory
+PHASE 3A.4 — CACHE AI
 
-PHASE 3.2A AI Failover System
-
-PHASE 3A Project Intelligence
+PHASE 3A.5 — CONTEXT MEMORY
 
 PHASE 3B Client Scoring
 
