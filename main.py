@@ -23,6 +23,10 @@ from memory.client_manager import (
     ClientManager
 )
 
+from memory.client_scoring import (
+    ClientScoring
+)
+
 from models.project_context import (
     ProjectContext
 )
@@ -484,6 +488,68 @@ def show_recommendations(
 
     console.print()
 
+def show_client_score(score):
+
+    table = Table(
+        title=f"Client Score : {score.client_name}"
+    )
+
+    table.add_column(
+        "Field"
+    )
+
+    table.add_column(
+        "Value"
+    )
+
+    table.add_row(
+        "Score",
+        str(score.score)
+    )
+
+    table.add_row(
+        "Tier",
+        score.tier
+    )
+
+    table.add_row(
+        "Projects",
+        str(score.total_projects)
+    )
+
+    table.add_row(
+        "Categories",
+        str(score.category_count)
+    )
+
+    table.add_row(
+        "Relationship Notes",
+        str(score.relationship_notes)
+    )
+
+    console.print(
+        table
+    )
+
+    reason_table = Table(
+        title="Scoring Reasons"
+    )
+
+    reason_table.add_column(
+        "Reason"
+    )
+
+    for reason in score.reasons:
+
+        reason_table.add_row(
+            reason
+        )
+
+    console.print(
+        reason_table
+    )
+
+    console.print()
 
 def run():
 
@@ -500,6 +566,8 @@ def run():
     history_manager = HistoryManager()
 
     client_manager = ClientManager()
+
+    client_scoring = ClientScoring()
 
     print_header()
 
@@ -616,6 +684,41 @@ def run():
 
                 console.print(
                     "[yellow]Client tidak ditemukan[/yellow]"
+                )
+
+            continue
+
+        if CommandRouter.is_command(
+            brief,
+            "score client "
+        ):
+
+            client_name = (
+                brief
+                .replace(
+                    "score client ",
+                    ""
+                )
+                .strip()
+                .upper()
+            )
+
+            try:
+
+                score = (
+                    client_scoring.calculate_score(
+                        client_name
+                    )
+                )
+
+                show_client_score(
+                    score
+                )
+
+            except Exception as e:
+
+                console.print(
+                    f"[red]{str(e)}[/red]"
                 )
 
             continue
