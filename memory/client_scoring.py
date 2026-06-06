@@ -5,34 +5,73 @@ from memory.client_manager import ClientManager
 class ClientScoring:
 
     def __init__(self):
+
         self.client_manager = ClientManager()
 
-    def calculate_score(self, client_id: int) -> ClientScore:
+    def calculate_score(
+        self,
+        client_name: str
+    ) -> ClientScore:
 
-        client = self.client_manager.get_client(client_id)
+        client = (
+            self.client_manager.get_client(
+                client_name
+            )
+        )
 
         if not client:
-            raise ValueError(f"Client ID {client_id} not found")
 
-        projects = self.client_manager.get_client_projects(client_id)
-        notes = self.client_manager.get_client_notes(client_id)
+            raise ValueError(
+                f"Client {client_name} not found"
+            )
+
+        projects = (
+            self.client_manager.get_client_projects(
+                client_name
+            )
+        )
+
+        notes = (
+            self.client_manager.get_client_notes(
+                client_name
+            )
+        )
 
         total_projects = len(projects)
 
         categories = set()
 
         for project in projects:
-            category = project.get("category")
+
+            category = project[2]
 
             if category:
-                categories.add(category)
+
+                categories.add(
+                    category
+                )
 
         category_count = len(categories)
+
         relationship_notes = len(notes)
 
-        project_score = self.score_project_count(total_projects)
-        category_score = self.score_category_diversity(category_count)
-        note_score = self.score_relationship_notes(relationship_notes)
+        project_score = (
+            self.score_project_count(
+                total_projects
+            )
+        )
+
+        category_score = (
+            self.score_category_diversity(
+                category_count
+            )
+        )
+
+        note_score = (
+            self.score_relationship_notes(
+                relationship_notes
+            )
+        )
 
         final_score = (
             project_score
@@ -40,7 +79,9 @@ class ClientScoring:
             + note_score
         )
 
-        tier = self.determine_tier(final_score)
+        tier = self.determine_tier(
+            final_score
+        )
 
         reasons = self.generate_reasons(
             total_projects,
@@ -49,8 +90,8 @@ class ClientScoring:
         )
 
         return ClientScore(
-            client_id=client_id,
-            client_name=client["name"],
+            client_id=0,
+            client_name=client_name.upper(),
             score=final_score,
             tier=tier,
             total_projects=total_projects,
@@ -59,7 +100,10 @@ class ClientScoring:
             reasons=reasons
         )
 
-    def score_project_count(self, total_projects: int) -> int:
+    def score_project_count(
+        self,
+        total_projects: int
+    ):
 
         if total_projects >= 10:
             return 40
@@ -78,7 +122,10 @@ class ClientScoring:
 
         return 0
 
-    def score_category_diversity(self, category_count: int) -> int:
+    def score_category_diversity(
+        self,
+        category_count: int
+    ):
 
         if category_count >= 5:
             return 30
@@ -97,7 +144,10 @@ class ClientScoring:
 
         return 0
 
-    def score_relationship_notes(self, relationship_notes: int) -> int:
+    def score_relationship_notes(
+        self,
+        relationship_notes: int
+    ):
 
         if relationship_notes >= 10:
             return 30
@@ -116,7 +166,10 @@ class ClientScoring:
 
         return 0
 
-    def determine_tier(self, score: int) -> str:
+    def determine_tier(
+        self,
+        score: int
+    ):
 
         if score >= 90:
             return "PLATINUM"
@@ -139,37 +192,27 @@ class ClientScoring:
         reasons = []
 
         if total_projects >= 5:
-            reasons.append("repeat client")
+
+            reasons.append(
+                "repeat client"
+            )
 
         if category_count >= 3:
-            reasons.append("multiple service categories")
+
+            reasons.append(
+                "multiple service categories"
+            )
 
         if relationship_notes >= 3:
-            reasons.append("active relationship history")
+
+            reasons.append(
+                "active relationship history"
+            )
 
         if not reasons:
-            reasons.append("new client")
+
+            reasons.append(
+                "new client"
+            )
 
         return reasons
-
-    def get_client_ranking(self):
-
-        ranking = []
-
-        clients = self.client_manager.get_all_clients()
-
-        for client in clients:
-
-            try:
-                score = self.calculate_score(client["id"])
-                ranking.append(score)
-
-            except Exception:
-                continue
-
-        ranking.sort(
-            key=lambda item: item.score,
-            reverse=True
-        )
-
-        return ranking
