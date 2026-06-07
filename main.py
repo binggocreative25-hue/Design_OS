@@ -43,6 +43,10 @@ from utils.currency_formatter import (
     CurrencyFormatter
 )
 
+from memory.sales_manager import (
+    SalesManager
+)
+
 console = Console()
 
 
@@ -733,6 +737,100 @@ def show_crm_dashboard(
 
     console.print()
 
+def show_sales_strategy(
+    strategy
+):
+
+    table = Table(
+        title=f"Sales Intelligence : {strategy.client_name}"
+    )
+
+    table.add_column(
+        "Field"
+    )
+
+    table.add_column(
+        "Value"
+    )
+
+    table.add_row(
+        "Client Score",
+        str(
+            strategy.client_score
+        )
+    )
+
+    table.add_row(
+        "Client Tier",
+        strategy.client_tier
+    )
+
+    table.add_row(
+        "Closing Probability",
+        f"{strategy.closing_probability}%"
+    )
+
+    table.add_row(
+        "Revenue Potential",
+        strategy.revenue_potential
+    )
+
+    table.add_row(
+        "Priority",
+        strategy.priority
+    )
+
+    table.add_row(
+        "Estimated Revenue",
+        f"Rp {strategy.estimated_revenue:,}"
+    )
+
+    console.print(
+        table
+    )
+
+    action_table = Table(
+        title="Recommended Actions"
+    )
+
+    action_table.add_column(
+        "Action"
+    )
+
+    for action in (
+        strategy.recommended_actions
+    ):
+
+        action_table.add_row(
+            action
+        )
+
+    console.print(
+        action_table
+    )
+
+    upsell_table = Table(
+        title="Upsell Services"
+    )
+
+    upsell_table.add_column(
+        "Service"
+    )
+
+    for service in (
+        strategy.upsell_services
+    ):
+
+        upsell_table.add_row(
+            service
+        )
+
+    console.print(
+        upsell_table
+    )
+
+    console.print()
+
 def show_pipeline_update_result(
     client_name,
     status
@@ -809,6 +907,10 @@ def run():
 
     crm_manager = (
     CRMManager()
+    )
+    
+    sales_manager = (
+    SalesManager()
     )
 
     print_header()
@@ -1156,6 +1258,34 @@ def run():
 
             show_crm_pipeline(
                 pipeline
+            )
+
+            continue
+
+        if CommandRouter.is_command(
+            brief,
+            "sales client "
+        ):
+
+            client_name = (
+                brief
+                .replace(
+                    "sales client ",
+                    ""
+                )
+                .strip()
+                .upper()
+            )
+
+            strategy = (
+                sales_manager
+                .generate_strategy(
+                    client_name
+                )
+            )
+
+            show_sales_strategy(
+                strategy
             )
 
             continue
