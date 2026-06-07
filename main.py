@@ -831,6 +831,66 @@ def show_sales_strategy(
 
     console.print()
 
+def show_sales_leaderboard(
+    leaderboard
+):
+
+    table = Table(
+        title="Sales Leaderboard"
+    )
+
+    table.add_column(
+        "Rank"
+    )
+
+    table.add_column(
+        "Client"
+    )
+
+    table.add_column(
+        "Tier"
+    )
+
+    table.add_column(
+        "Priority"
+    )
+
+    table.add_column(
+        "Close %"
+    )
+
+    table.add_column(
+        "Revenue"
+    )
+
+    for index, item in enumerate(
+        leaderboard,
+        start=1
+    ):
+
+        table.add_row(
+
+            str(index),
+
+            item.client_name,
+
+            item.client_tier,
+
+            item.priority,
+
+            str(
+                item.closing_probability
+            ),
+
+            f"Rp {item.estimated_revenue:,}"
+        )
+
+    console.print(
+        table
+    )
+
+    console.print()
+
 def show_pipeline_update_result(
     client_name,
     status
@@ -1258,6 +1318,21 @@ def run():
 
             show_crm_pipeline(
                 pipeline
+            )
+
+            continue
+
+        if brief.lower() == (
+            "sales leaderboard"
+        ):
+
+            leaderboard = (
+                sales_manager
+                .get_leaderboard()
+            )
+
+            show_sales_leaderboard(
+                leaderboard
             )
 
             continue

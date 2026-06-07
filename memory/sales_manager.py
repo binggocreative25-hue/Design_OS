@@ -124,6 +124,51 @@ class SalesManager:
             upsell_services
         )
 
+    def get_leaderboard(
+        self
+    ):
+
+        leaderboard = []
+
+        clients = (
+            self.crm_manager
+            .pipeline
+            .keys()
+        )
+
+        for client in clients:
+
+            try:
+
+                strategy = (
+                    self.generate_strategy(
+                        client
+                    )
+                )
+
+                leaderboard.append(
+                    strategy
+                )
+
+            except Exception:
+
+                continue
+
+        leaderboard.sort(
+
+            key=lambda item: (
+
+                item.closing_probability,
+
+                item.estimated_revenue
+
+            ),
+
+            reverse=True
+        )
+
+        return leaderboard
+
     def calculate_probability(
         self,
         score
