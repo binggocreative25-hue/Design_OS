@@ -583,6 +583,29 @@ def show_service_recommendation(
         recommendation.client_tier
     )
 
+    summary.add_row(
+        "Confidence",
+        f"{recommendation.confidence_score}%"
+    )
+
+    summary.add_row(
+        "Upsell",
+        (
+            "YES"
+            if recommendation.upsell_opportunity
+            else "NO"
+        )
+    )
+
+    summary.add_row(
+        "Cross-Sell",
+        (
+            "YES"
+            if recommendation.cross_sell_opportunity
+            else "NO"
+        )
+    )
+
     console.print(
         summary
     )

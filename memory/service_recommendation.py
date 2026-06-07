@@ -185,6 +185,19 @@ class ServiceRecommendationEngine:
             reverse=True
         )
 
+        confidence_score = min(
+            100,
+            client_score.score + 20
+        )
+
+        upsell_opportunity = (
+            client_score.score >= 75
+        )
+
+        cross_sell_opportunity = (
+            len(recommendations) >= 3
+        )
+
         return ServiceRecommendation(
 
             client_name=client_name,
@@ -193,5 +206,15 @@ class ServiceRecommendationEngine:
 
             client_tier=client_score.tier,
 
-            recommendations=recommendations
+            confidence_score=
+                confidence_score,
+
+            upsell_opportunity=
+                upsell_opportunity,
+
+            cross_sell_opportunity=
+                cross_sell_opportunity,
+
+            recommendations=
+                recommendations
         )

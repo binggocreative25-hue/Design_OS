@@ -18,6 +18,12 @@ class ServiceRecommendation:
     client_score: int
     client_tier: str
 
+    confidence_score: int = 0
+
+    upsell_opportunity: bool = False
+
+    cross_sell_opportunity: bool = False
+
     recommendations: List[
         RecommendationItem
     ] = field(
@@ -27,6 +33,7 @@ class ServiceRecommendation:
     def to_dict(self):
 
         return {
+
             "client_name":
                 self.client_name,
 
@@ -35,6 +42,15 @@ class ServiceRecommendation:
 
             "client_tier":
                 self.client_tier,
+
+            "confidence_score":
+                self.confidence_score,
+
+            "upsell_opportunity":
+                self.upsell_opportunity,
+
+            "cross_sell_opportunity":
+                self.cross_sell_opportunity,
 
             "recommendations": [
 
