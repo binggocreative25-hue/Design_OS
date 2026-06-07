@@ -27,6 +27,10 @@ from memory.client_scoring import (
     ClientScoring
 )
 
+from memory.service_recommendation import (
+    ServiceRecommendationEngine
+)
+
 from models.project_context import (
     ProjectContext
 )
@@ -551,6 +555,68 @@ def show_client_score(score):
 
     console.print()
 
+def show_service_recommendation(
+    recommendation
+):
+
+    summary = Table(
+        title=f"Service Recommendation : {recommendation.client_name}"
+    )
+
+    summary.add_column(
+        "Field"
+    )
+
+    summary.add_column(
+        "Value"
+    )
+
+    summary.add_row(
+        "Client Score",
+        str(
+            recommendation.client_score
+        )
+    )
+
+    summary.add_row(
+        "Client Tier",
+        recommendation.client_tier
+    )
+
+    console.print(
+        summary
+    )
+
+    table = Table(
+        title="Recommended Services"
+    )
+
+    table.add_column(
+        "Service"
+    )
+
+    table.add_column(
+        "Score"
+    )
+
+    table.add_column(
+        "Reason"
+    )
+
+    for item in recommendation.recommendations:
+
+        table.add_row(
+            item.service,
+            str(item.score),
+            item.reason
+        )
+
+    console.print(
+        table
+    )
+
+    console.print()
+
 def show_client_ranking(
     ranking
 ):
@@ -599,6 +665,10 @@ def run():
     client_manager = ClientManager()
 
     client_scoring = ClientScoring()
+
+    service_recommendation = (
+    ServiceRecommendationEngine()
+    )
 
     print_header()
 
@@ -816,7 +886,10 @@ def run():
 
             continue
 
-        if CommandRouter.is_command(brief, "recommend client"):
+        if CommandRouter.is_command(
+            brief,
+            "recommend client "
+        ):
 
             client_name = (
                 brief
@@ -828,17 +901,17 @@ def run():
                 .upper()
             )
 
-            recommendations = (
-                client_manager.recommend_services(
+            recommendation = (
+                service_recommendation
+                .recommend(
                     client_name
                 )
             )
 
-            if recommendations:
+            if recommendation:
 
-                show_recommendations(
-                    client_name,
-                    recommendations
+                show_service_recommendation(
+                    recommendation
                 )
 
             else:
