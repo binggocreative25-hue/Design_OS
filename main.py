@@ -31,6 +31,10 @@ from memory.service_recommendation import (
     ServiceRecommendationEngine
 )
 
+from memory.crm_manager import (
+    CRMManager
+)
+
 from models.project_context import (
     ProjectContext
 )
@@ -640,6 +644,64 @@ def show_service_recommendation(
 
     console.print()
 
+def show_crm_pipeline(
+    pipeline
+):
+
+    table = Table(
+        title=f"CRM Pipeline : {pipeline.client_name}"
+    )
+
+    table.add_column(
+        "Field"
+    )
+
+    table.add_column(
+        "Value"
+    )
+
+    table.add_row(
+        "Status",
+        pipeline.status
+    )
+
+    table.add_row(
+        "Next Action",
+        pipeline.next_action
+    )
+
+    table.add_row(
+        "Projects",
+        str(
+            pipeline.project_count
+        )
+    )
+
+    table.add_row(
+        "Notes",
+        str(
+            pipeline.notes_count
+        )
+    )
+
+    table.add_row(
+        "Client Score",
+        str(
+            pipeline.client_score
+        )
+    )
+
+    table.add_row(
+        "Client Tier",
+        pipeline.client_tier
+    )
+
+    console.print(
+        table
+    )
+
+    console.print()
+
 def show_client_ranking(
     ranking
 ):
@@ -691,6 +753,10 @@ def run():
 
     service_recommendation = (
     ServiceRecommendationEngine()
+    )
+
+    crm_manager = (
+    CRMManager()
     )
 
     print_header()
@@ -945,6 +1011,33 @@ def run():
 
             continue
 
+        if CommandRouter.is_command(
+            brief,
+            "crm client "
+        ):
+
+            client_name = (
+                brief
+                .replace(
+                    "crm client ",
+                    ""
+                )
+                .strip()
+                .upper()
+            )
+
+            pipeline = (
+                crm_manager
+                .get_pipeline(
+                    client_name
+                )
+            )
+
+            show_crm_pipeline(
+                pipeline
+            )
+
+            continue
 
         if brief.lower() == "analytics":
 
