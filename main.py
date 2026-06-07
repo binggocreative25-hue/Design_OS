@@ -702,6 +702,37 @@ def show_crm_pipeline(
 
     console.print()
 
+def show_crm_dashboard(
+    summary
+):
+
+    table = Table(
+        title="CRM Dashboard"
+    )
+
+    table.add_column(
+        "Stage"
+    )
+
+    table.add_column(
+        "Total"
+    )
+
+    for stage, total in (
+        summary.items()
+    ):
+
+        table.add_row(
+            stage,
+            str(total)
+        )
+
+    console.print(
+        table
+    )
+
+    console.print()
+
 def show_pipeline_update_result(
     client_name,
     status
@@ -1029,6 +1060,21 @@ def run():
                 console.print(
                     "[yellow]Client tidak ditemukan[/yellow]"
                 )
+
+            continue
+
+        if brief.lower() == (
+            "crm dashboard"
+        ):
+
+            summary = (
+                crm_manager
+                .get_dashboard_summary()
+            )
+
+            show_crm_dashboard(
+                summary
+            )
 
             continue
 

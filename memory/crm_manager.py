@@ -162,6 +162,32 @@ class CRMManager:
 
         return result
 
+    def get_dashboard_summary(
+        self
+    ):
+
+        summary = {}
+
+        for stage in (
+            self.PIPELINE_STAGES
+        ):
+
+            summary[
+                stage
+            ] = 0
+
+        for status in (
+            self.pipeline.values()
+        ):
+
+            if status in summary:
+
+                summary[
+                    status
+                ] += 1
+
+        return summary
+
     def get_next_action(
         self,
         status: str
