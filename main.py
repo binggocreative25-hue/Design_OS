@@ -702,6 +702,27 @@ def show_crm_pipeline(
 
     console.print()
 
+def show_pipeline_update_result(
+    client_name,
+    status
+):
+
+    console.print()
+
+    console.print(
+        f"[green]Pipeline updated[/green]"
+    )
+
+    console.print(
+        f"Client : {client_name}"
+    )
+
+    console.print(
+        f"Status : {status}"
+    )
+
+    console.print()
+
 def show_client_ranking(
     ranking
 ):
@@ -1007,6 +1028,60 @@ def run():
 
                 console.print(
                     "[yellow]Client tidak ditemukan[/yellow]"
+                )
+
+            continue
+
+        if CommandRouter.is_command(
+            brief,
+            "crm update "
+        ):
+
+            parts = (
+                brief.split()
+            )
+
+            if len(parts) < 4:
+
+                console.print(
+                    "[yellow]Format:[/yellow]"
+                )
+
+                console.print(
+                    "crm update CLIENT STATUS"
+                )
+
+                continue
+
+            client_name = (
+                parts[2]
+                .upper()
+            )
+
+            status = (
+                parts[3]
+                .upper()
+            )
+
+            success = (
+                crm_manager
+                .update_pipeline(
+                    client_name,
+                    status
+                )
+            )
+
+            if success:
+
+                show_pipeline_update_result(
+                    client_name,
+                    status
+                )
+
+            else:
+
+                console.print(
+                    "[red]Invalid status[/red]"
                 )
 
             continue
