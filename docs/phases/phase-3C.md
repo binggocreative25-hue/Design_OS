@@ -36,6 +36,7 @@ Test:
 
 Result:
 
-PASS / FAIL
+PASS
 
 Tag:
+* [new tag]         phase-3c -> phase-3c

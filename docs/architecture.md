@@ -40,12 +40,14 @@ main.py
 │   ├── cache_manager.py
 │   ├── semantic_search.py
 │   ├── project_context.json
-
+│   ├── service_recommendation.py
+│
 ├── models/
 │   ├── director_output.py
 │   ├── pricing_output.py
 │   ├── project_context.py
 │   ├── strategy_output.py
+│   ├── service_recommendation.py
 │
 ├── tools/
 │   ├── pricing_engine.py
