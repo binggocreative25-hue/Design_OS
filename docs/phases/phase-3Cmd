@@ -2,9 +2,9 @@
 
 Goal:
 
-Membangun sistem rekomendasi layanan otomatis berdasarkan histori client, client intelligence, project intelligence, relationship memory, dan client scoring.
+Membangun sistem rekomendasi layanan cerdas berdasarkan histori project client, client intelligence, relationship memory, project intelligence, dan client scoring.
 
-Sistem dapat memberikan rekomendasi layanan yang paling relevan untuk meningkatkan peluang repeat order dan upselling.
+Sistem mampu memberikan rekomendasi layanan yang relevan untuk meningkatkan repeat order, cross-sell, dan upsell secara otomatis.
 
 Files:
 
@@ -20,22 +20,22 @@ Features:
 * Upsell Opportunity Detection
 * Cross-Sell Opportunity Detection
 * Recommendation Reason Generator
-* Recommend Client Command
+* Recommendation Confidence Score
+* Recommend Client Command Enhancement
 * Service Recommendation Ranking
 
 Test:
 
-* Recommend services for high score clients
-* Recommend services for low score clients
-* Validate upsell recommendations
-* Validate cross-sell recommendations
-* Validate recommendation reasons
-* Validate command integration
+* High score client recommendation
+* Medium score client recommendation
+* New client recommendation
+* Upsell recommendation validation
+* Cross-sell recommendation validation
+* Recommendation reason validation
+* Command integration validation
 
 Result:
 
 PASS / FAIL
 
-
 Tag:
-phase-3c

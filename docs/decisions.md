@@ -14,4 +14,7 @@ Command Router = commands/router.py
 Client Memory = SQLite
 
 006
-Project Intelligence 
+Project Intelligence = Client Recommendation
+
+007
+Service Recommendation =
