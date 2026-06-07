@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from models.client_pipeline import (
     ClientPipeline
 )
@@ -40,7 +43,57 @@ class CRMManager:
             ClientScoring()
         )
 
-        self.pipeline = {}
+        self.storage_file = (
+            Path(
+                "memory/crm_pipeline.json"
+            )
+        )
+
+        self.pipeline = (
+            self.load_pipeline()
+        )
+
+    def load_pipeline(
+        self
+    ):
+
+        if not (
+            self.storage_file.exists()
+        ):
+
+            return {}
+
+        try:
+
+            with open(
+                self.storage_file,
+                "r",
+                encoding="utf-8"
+            ) as file:
+
+                return json.load(
+                    file
+                )
+
+        except Exception:
+
+            return {}
+
+    def save_pipeline(
+        self
+    ):
+
+        with open(
+            self.storage_file,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                self.pipeline,
+                file,
+                indent=4
+            )
 
     def create_pipeline(
         self,
@@ -55,7 +108,8 @@ class CRMManager:
         self.pipeline[
             client_name
         ] = status
-
+        
+        self.save_pipeline()
         return True
 
     def update_pipeline(
@@ -76,7 +130,8 @@ class CRMManager:
         self.pipeline[
             client_name
         ] = status
-
+        
+        self.save_pipeline()
         return True
 
     def get_pipeline(
