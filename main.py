@@ -1612,6 +1612,27 @@ def run():
             continue
 
         if brief.lower().startswith(
+            "schedule done "
+        ):
+
+            task_id = int(
+                brief.replace(
+                    "schedule done ",
+                    ""
+                )
+            )
+
+            scheduler_manager.complete_task(
+                task_id
+            )
+
+            console.print(
+                "[green]Task completed[/green]"
+            )
+
+            continue
+
+        if brief.lower().startswith(
             "schedule add "
         ):
 
