@@ -3,9 +3,15 @@
 Autonomous Design Assistant
 
 ## Features
+
 - Pricing Engine
 - Client Memory
-- Recommendation Engine
+- Project Intelligence
+- Service Recommendation
+- CRM Pipeline
+- Sales Intelligence
+- Revenue Forecast
+- Opportunity Ranking
 - Command Router
 
 ## Roadmap
@@ -30,5 +36,28 @@ python test_models.py
 python test_openrouter_call.py
 python test_openrouter.py
 python test_pricing.py
+python test_sales_manager.py
+python test_sales_strategy.py
 python test_strategy.py
 python test_url.py
+python test_client_scoring.py
+python test_service_recommendation.py
+python test_sales_manager.py
+
+## Commands
+
+recommend client MFI
+
+crm client MFI
+
+crm update MFI DISCUSSION
+
+sales client MFI
+
+sales leaderboard
+
+sales pipeline
+
+sales forecast
+
+sales opportunities

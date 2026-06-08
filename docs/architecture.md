@@ -41,6 +41,9 @@ main.py
 │   ├── semantic_search.py
 │   ├── project_context.json
 │   ├── service_recommendation.py
+│   ├── crm_manager.py
+│   ├── crm_pipeline.json
+│   ├── sales_manager.py  
 │
 ├── models/
 │   ├── director_output.py
@@ -48,6 +51,9 @@ main.py
 │   ├── project_context.py
 │   ├── strategy_output.py
 │   ├── service_recommendation.py
+│   ├── client_pipeline.py
+│   ├── client_score.py
+│   ├── sales_strategy.py
 │
 ├── tools/
 │   ├── pricing_engine.py
