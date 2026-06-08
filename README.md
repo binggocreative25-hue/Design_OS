@@ -25,6 +25,8 @@ Commands:
 - schedule analytics
 - schedule upcoming
 - schedule completed
+- Scheduler System
+- Automation Engine
 
 ## Roadmap
 See docs/roadmap.md

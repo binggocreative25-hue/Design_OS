@@ -39,6 +39,10 @@ from memory.scheduler_manager import (
     SchedulerManager
 )
 
+from memory.automation_manager import (
+    AutomationManager
+)
+
 from models.project_context import (
     ProjectContext
 )
@@ -1221,6 +1225,10 @@ def run():
     SchedulerManager()
     )
 
+    automation_manager = (
+        AutomationManager()
+    )
+
     print_header()
 
     console.print(
@@ -1808,6 +1816,18 @@ def run():
                 )
 
             console.print(table)
+
+            continue
+
+        if brief.lower() == "automation run":
+
+            executed = (
+                automation_manager.run_rules()
+            )
+
+            console.print(
+                f"\n[bold green]{executed} automation rule executed[/bold green]"
+            )
 
             continue
 

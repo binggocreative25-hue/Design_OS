@@ -1,0 +1,13 @@
+{
+    "rules": [
+        {
+            "name": "Follow Up Hot Lead",
+            "trigger_type": "crm_status",
+            "condition": "DISCUSSION",
+            "action": "create_followup",
+            "enabled": true,
+            "execution_count": 1,
+            "last_executed": "2026-06-08 21:44:53"
+        }
+    ]
+}
