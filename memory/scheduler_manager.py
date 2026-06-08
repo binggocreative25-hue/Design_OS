@@ -105,3 +105,57 @@ class SchedulerManager:
         )
 
         return tasks
+
+    def get_dashboard(
+        self
+    ):
+
+        tasks = (
+            self._load_tasks()
+        )
+
+        total_tasks = (
+            len(tasks)
+        )
+
+        completed_tasks = (
+            len(
+                [
+                    task
+                    for task in tasks
+                    if task["status"]
+                    == "DONE"
+                ]
+            )
+        )
+
+        pending_tasks = (
+            total_tasks -
+            completed_tasks
+        )
+
+        completion_rate = 0
+
+        if total_tasks > 0:
+
+            completion_rate = round(
+                (
+                    completed_tasks /
+                    total_tasks
+                ) * 100,
+                2
+            )
+
+        return {
+            "total_tasks":
+                total_tasks,
+
+            "pending_tasks":
+                pending_tasks,
+
+            "completed_tasks":
+                completed_tasks,
+
+            "completion_rate":
+                completion_rate
+        }        

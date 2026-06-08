@@ -986,6 +986,66 @@ def show_scheduler_tasks(
         table
     )
 
+def show_scheduler_dashboard(
+    dashboard
+):
+
+    table = Table(
+        title=
+        "Scheduler Dashboard"
+    )
+
+    table.add_column(
+        "Metric"
+    )
+
+    table.add_column(
+        "Value"
+    )
+
+    table.add_row(
+        "Total Tasks",
+        str(
+            dashboard[
+                "total_tasks"
+            ]
+        )
+    )
+
+    table.add_row(
+        "Pending Tasks",
+        str(
+            dashboard[
+                "pending_tasks"
+            ]
+        )
+    )
+
+    table.add_row(
+        "Completed Tasks",
+        str(
+            dashboard[
+                "completed_tasks"
+            ]
+        )
+    )
+
+    table.add_row(
+        "Completion Rate",
+        (
+            str(
+                dashboard[
+                    "completion_rate"
+                ]
+            )
+            + "%"
+        )
+    )
+
+    console.print(
+        table
+    )
+
 def show_forecast_summary(
     summary
 ):
@@ -1607,6 +1667,23 @@ def run():
 
             show_scheduler_tasks(
                 tasks
+            )
+
+            continue
+
+        if (
+            brief.lower()
+            ==
+            "schedule dashboard"
+        ):
+
+            dashboard = (
+                scheduler_manager
+                .get_dashboard()
+            )
+
+            show_scheduler_dashboard(
+                dashboard
             )
 
             continue
