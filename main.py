@@ -1191,6 +1191,34 @@ def show_client_ranking(
 
     console.print()
 
+def show_automation_dashboard(data):
+
+    from rich.table import Table
+
+    table = Table(
+        title="Automation Dashboard"
+    )
+
+    table.add_column("Metric")
+    table.add_column("Value")
+
+    table.add_row(
+        "Total Rules",
+        str(data["total_rules"])
+    )
+
+    table.add_row(
+        "Enabled Rules",
+        str(data["enabled_rules"])
+    )
+
+    table.add_row(
+        "Total Executions",
+        str(data["total_executions"])
+    )
+
+    console.print(table)
+
 def run():
 
     db = Database(
@@ -1828,6 +1856,26 @@ def run():
             console.print(
                 f"\n[bold green]{executed} automation rule executed[/bold green]"
             )
+
+            continue
+
+        if brief.lower() == "automation dashboard":
+
+            dashboard = (
+                automation_manager.automation_dashboard()
+            )
+
+            show_automation_dashboard(
+                dashboard
+            )
+
+            continue
+
+        if brief.lower() == "automation dashboard":
+
+            data = automation_manager.automation_dashboard()
+
+            show_automation_dashboard(data)
 
             continue
 
