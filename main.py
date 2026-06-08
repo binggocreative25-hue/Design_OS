@@ -1749,7 +1749,7 @@ def run():
 
             continue
 
-        if brief.lower() == "analytics":
+        if brief.lower() == "schedule analytics":
 
             analytics = (
                 history_manager.get_analytics()
@@ -1758,6 +1758,31 @@ def run():
             show_analytics(
                 analytics
             )
+
+            continue
+
+        if brief.lower() == "schedule upcoming":
+
+            tasks = scheduler_manager.get_upcoming_tasks()
+
+            console.print(
+                "\n[bold italic]Upcoming Tasks[/bold italic]"
+            )
+
+            table = Table()
+
+            table.add_column("ID")
+            table.add_column("Title")
+            table.add_column("Date")
+
+            for task in tasks:
+                table.add_row(
+                    str(task["id"]),
+                    task["title"],
+                    task["date"]
+                )
+
+            console.print(table)
 
             continue
 

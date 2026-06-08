@@ -186,4 +186,13 @@ class SchedulerManager:
             "pending_tasks": pending,
             "completed_tasks": completed,
             "completion_rate": completion_rate
-        }        
+        }
+
+    def get_upcoming_tasks(self):
+        tasks = self.list_tasks()
+
+        return [
+            task
+            for task in tasks
+            if task["status"] == "PENDING"
+        ]        
