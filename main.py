@@ -891,6 +891,56 @@ def show_sales_leaderboard(
 
     console.print()
 
+def show_pipeline_analytics(
+    analytics
+):
+
+    table = Table(
+        title="Sales Pipeline"
+    )
+
+    table.add_column(
+        "Metric"
+    )
+
+    table.add_column(
+        "Value"
+    )
+
+    table.add_row(
+        "Total Pipeline",
+        f"Rp {analytics['total_pipeline']:,}"
+    )
+
+    table.add_row(
+        "Forecast Revenue",
+        f"Rp {analytics['forecast_revenue']:,}"
+    )
+
+    table.add_row(
+        "High Priority Clients",
+        str(
+            analytics[
+                "high_priority"
+            ]
+        )
+    )
+
+    table.add_row(
+        "Total Opportunities",
+        str(
+            analytics[
+                "opportunities"
+            ]
+        )
+    )
+
+    console.print(
+        table
+    )
+
+    console.print()
+
 def show_pipeline_update_result(
     client_name,
     status
@@ -1333,6 +1383,22 @@ def run():
 
             show_sales_leaderboard(
                 leaderboard
+            )
+
+        
+            continue
+
+        if brief.lower() == (
+            "sales pipeline"
+        ):
+
+            analytics = (
+                sales_manager
+                .get_pipeline_analytics()
+            )
+
+            show_pipeline_analytics(
+                analytics
             )
 
             continue

@@ -169,6 +169,58 @@ class SalesManager:
 
         return leaderboard
 
+    def get_pipeline_analytics(
+        self
+    ):
+
+        leaderboard = (
+            self.get_leaderboard()
+        )
+
+        total_revenue = sum(
+            item.estimated_revenue
+            for item in leaderboard
+        )
+
+        forecast_revenue = sum(
+
+            int(
+                item.estimated_revenue
+                *
+                (
+                    item.closing_probability
+                    / 100
+                )
+            )
+
+            for item in leaderboard
+        )
+
+        high_priority = len(
+
+            [
+                item
+                for item in leaderboard
+                if item.priority == "A"
+            ]
+        )
+
+        return {
+
+            "total_pipeline":
+                total_revenue,
+
+            "forecast_revenue":
+                forecast_revenue,
+
+            "high_priority":
+                high_priority,
+
+            "opportunities":
+                len(leaderboard)
+
+        }
+
     def calculate_probability(
         self,
         score
