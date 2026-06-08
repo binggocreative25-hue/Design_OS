@@ -19,3 +19,16 @@
 010 Revenue Forecast = Sales Strategy Engine
 
 011 Opportunity Ranking = Close Probability + Revenue
+
+## Phase 6
+
+Decision:
+Scheduler menggunakan JSON persistence sederhana.
+
+Reason:
+- Ringan
+- Cepat diimplementasikan
+- Tidak membutuhkan tabel database tambahan
+
+Future:
+Dapat dipindahkan ke SQLite apabila volume task meningkat.

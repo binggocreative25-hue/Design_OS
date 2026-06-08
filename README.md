@@ -14,6 +14,18 @@ Autonomous Design Assistant
 - Opportunity Ranking
 - Command Router
 
+### Scheduler
+
+Commands:
+
+- schedule add
+- schedule list
+- schedule done
+- schedule dashboard
+- schedule analytics
+- schedule upcoming
+- schedule completed
+
 ## Roadmap
 See docs/roadmap.md
 

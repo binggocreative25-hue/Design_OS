@@ -9,6 +9,7 @@ Scheduler Core
 
 Result:
 
-PASS / FAIL
+PASS
 
 Tags:
+* [new tag]         phase-6 -> phase-6

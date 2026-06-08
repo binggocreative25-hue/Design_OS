@@ -43,7 +43,9 @@ main.py
 │   ├── service_recommendation.py
 │   ├── crm_manager.py
 │   ├── crm_pipeline.json
-│   ├── sales_manager.py  
+│   ├── sales_manager.py 
+│   ├── scheduler_manager.py
+│   ├── scheduler_tasks.json
 │
 ├── models/
 │   ├── director_output.py
