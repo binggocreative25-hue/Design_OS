@@ -42,11 +42,11 @@ PHASE 3B Client Scoring
 
 PHASE 3C Service Recommendation
 
-PHASE 4 CRM
+PHASE 4 CRM Intelligence
 
-PHASE 5 Proposal Engine
+PHASE 5 Sales Intelligence
 
-PHASE 6 Scheduler
+PHASE 6 Scheduler System
 
 PHASE 7 WhatsApp
 
