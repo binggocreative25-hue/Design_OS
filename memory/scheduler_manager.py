@@ -195,4 +195,13 @@ class SchedulerManager:
             task
             for task in tasks
             if task["status"] == "PENDING"
+        ]
+    
+    def get_completed_tasks(self):
+        tasks = self.list_tasks()
+
+        return [
+            task
+            for task in tasks
+            if task["status"] == "DONE"
         ]        

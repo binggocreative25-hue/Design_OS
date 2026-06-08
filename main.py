@@ -1786,6 +1786,31 @@ def run():
 
             continue
 
+        if brief.lower() == "schedule completed":
+
+            tasks = scheduler_manager.get_completed_tasks()
+
+            console.print(
+                "\n[bold italic]Completed Tasks[/bold italic]"
+            )
+
+            table = Table()
+
+            table.add_column("ID")
+            table.add_column("Title")
+            table.add_column("Date")
+
+            for task in tasks:
+                table.add_row(
+                    str(task["id"]),
+                    task["title"],
+                    task["date"]
+                )
+
+            console.print(table)
+
+            continue
+
         analytics = scheduler_manager.get_analytics()
 
         console.print(
