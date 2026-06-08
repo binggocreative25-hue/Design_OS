@@ -247,6 +247,27 @@ class SalesManager:
 
         return summary
 
+    def get_opportunities(
+        self
+    ):
+
+        leaderboard = (
+            self.get_leaderboard()
+        )
+
+        return sorted(
+
+            leaderboard,
+
+            key=lambda item: (
+                item.closing_probability,
+                item.estimated_revenue
+            ),
+
+            reverse=True
+
+        )
+
     def calculate_probability(
         self,
         score

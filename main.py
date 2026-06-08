@@ -989,6 +989,47 @@ def show_forecast_summary(
 
     console.print()
 
+def show_opportunities(
+    opportunities
+):
+
+    table = Table(
+        title="Sales Opportunities"
+    )
+
+    table.add_column(
+        "Client"
+    )
+
+    table.add_column(
+        "Priority"
+    )
+
+    table.add_column(
+        "Close %"
+    )
+
+    table.add_column(
+        "Revenue"
+    )
+
+    for item in opportunities:
+
+        table.add_row(
+            item.client_name,
+            item.priority,
+            str(
+                item.closing_probability
+            ),
+            f"Rp {item.estimated_revenue:,}"
+        )
+
+    console.print(
+        table
+    )
+
+    console.print()
+
 def show_pipeline_update_result(
     client_name,
     status
@@ -1465,6 +1506,21 @@ def run():
             )
 
             continue
+
+        if brief.lower() == (
+            "sales opportunities"
+        ):
+
+            opportunities = (
+                sales_manager
+                .get_opportunities()
+            )
+
+            show_opportunities(
+                opportunities
+            )
+
+            continue       
 
         if CommandRouter.is_command(
             brief,
