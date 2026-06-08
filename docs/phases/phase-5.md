@@ -36,6 +36,7 @@ Test:
 
 Result:
 
-PASS / FAIL
+PASS
 
 Tags:
+* [new tag]         phase-5 -> phase-5
