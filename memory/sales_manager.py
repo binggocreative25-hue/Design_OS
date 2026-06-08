@@ -221,6 +221,32 @@ class SalesManager:
 
         }
 
+    def get_forecast_summary(
+        self
+    ):
+
+        leaderboard = (
+            self.get_leaderboard()
+        )
+
+        summary = {
+
+            "A": 0,
+            "B": 0,
+            "C": 0
+
+        }
+
+        for item in leaderboard:
+
+            summary[
+                item.priority
+            ] += (
+                item.estimated_revenue
+            )
+
+        return summary
+
     def calculate_probability(
         self,
         score

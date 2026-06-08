@@ -941,6 +941,54 @@ def show_pipeline_analytics(
 
     console.print()
 
+def show_forecast_summary(
+    summary
+):
+
+    table = Table(
+        title="Sales Forecast"
+    )
+
+    table.add_column(
+        "Priority"
+    )
+
+    table.add_column(
+        "Revenue"
+    )
+
+    total = 0
+
+    for priority in [
+        "A",
+        "B",
+        "C"
+    ]:
+
+        revenue = (
+            summary[
+                priority
+            ]
+        )
+
+        total += revenue
+
+        table.add_row(
+            priority,
+            f"Rp {revenue:,}"
+        )
+
+    table.add_row(
+        "TOTAL",
+        f"Rp {total:,}"
+    )
+
+    console.print(
+        table
+    )
+
+    console.print()
+
 def show_pipeline_update_result(
     client_name,
     status
@@ -1399,6 +1447,21 @@ def run():
 
             show_pipeline_analytics(
                 analytics
+            )
+
+            continue
+
+        if brief.lower() == (
+            "sales forecast"
+        ):
+
+            summary = (
+                sales_manager
+                .get_forecast_summary()
+            )
+
+            show_forecast_summary(
+                summary
             )
 
             continue
