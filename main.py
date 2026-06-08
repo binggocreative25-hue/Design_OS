@@ -1761,6 +1761,41 @@ def run():
 
             continue
 
+        analytics = scheduler_manager.get_analytics()
+
+        console.print(
+            "\n[bold italic]Scheduler Analytics[/bold italic]"
+        )
+
+        table = Table()
+
+        table.add_column("Metric")
+        table.add_column("Value")
+
+        table.add_row(
+            "Total Tasks",
+            str(analytics["total_tasks"])
+        )
+
+        table.add_row(
+            "Pending Tasks",
+            str(analytics["pending_tasks"])
+        )
+
+        table.add_row(
+            "Completed Tasks",
+            str(analytics["completed_tasks"])
+        )
+
+        table.add_row(
+            "Completion Rate",
+            f'{analytics["completion_rate"]}%'
+        )
+
+        console.print(table)
+
+        continue
+
         if brief.lower().startswith(
             "lanjutkan"
         ):

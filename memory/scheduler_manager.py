@@ -158,4 +158,32 @@ class SchedulerManager:
 
             "completion_rate":
                 completion_rate
+        }
+
+    def get_analytics(self):
+        tasks = self.list_tasks()
+
+        total = len(tasks)
+
+        completed = len([
+            t for t in tasks
+            if t["status"] == "DONE"
+        ])
+
+        pending = len([
+            t for t in tasks
+            if t["status"] == "PENDING"
+        ])
+
+        completion_rate = (
+            round((completed / total) * 100, 2)
+            if total > 0
+            else 0
+        )
+
+        return {
+            "total_tasks": total,
+            "pending_tasks": pending,
+            "completed_tasks": completed,
+            "completion_rate": completion_rate
         }        
