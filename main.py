@@ -35,6 +35,10 @@ from memory.crm_manager import (
     CRMManager
 )
 
+from memory.scheduler_manager import (
+    SchedulerManager
+)
+
 from models.project_context import (
     ProjectContext
 )
@@ -941,6 +945,47 @@ def show_pipeline_analytics(
 
     console.print()
 
+def show_scheduler_tasks(
+    tasks
+):
+
+    from rich.table import (
+        Table
+    )
+
+    table = Table(
+        title="Scheduler Tasks"
+    )
+
+    table.add_column(
+        "ID"
+    )
+
+    table.add_column(
+        "Title"
+    )
+
+    table.add_column(
+        "Date"
+    )
+
+    table.add_column(
+        "Status"
+    )
+
+    for task in tasks:
+
+        table.add_row(
+            str(task["id"]),
+            task["title"],
+            task["date"],
+            task["status"]
+        )
+
+    console.print(
+        table
+    )
+
 def show_forecast_summary(
     summary
 ):
@@ -1110,6 +1155,10 @@ def run():
     
     sales_manager = (
     SalesManager()
+    )
+
+    scheduler_manager = (
+    SchedulerManager()
     )
 
     print_header()
@@ -1546,6 +1595,58 @@ def run():
 
             show_sales_strategy(
                 strategy
+            )
+
+            continue
+
+        if brief.lower() == "schedule list":
+
+            tasks = (
+                scheduler_manager.list_tasks()
+            )
+
+            show_scheduler_tasks(
+                tasks
+            )
+
+            continue
+
+        if brief.lower().startswith(
+            "schedule add "
+        ):
+
+            parts = (
+                brief.replace(
+                    "schedule add ",
+                    ""
+                )
+                .strip()
+                .rsplit(
+                    " ",
+                    1
+                )
+            )
+            print(parts)
+
+            if len(parts) != 2:
+
+                console.print(
+                    "[red]Format:[/red] schedule add TITLE YYYY-MM-DD"
+                )
+
+                continue
+
+            title = parts[0]
+
+            date = parts[1]
+
+            scheduler_manager.create_task(
+                title,
+                date
+            )
+
+            console.print(
+                "[green]Task created[/green]"
             )
 
             continue
