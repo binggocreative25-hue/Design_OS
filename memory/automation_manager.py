@@ -143,3 +143,38 @@ class AutomationManager:
             "enabled_rules": enabled_rules,
             "total_executions": total_executions
         }
+
+    def automation_analytics(self):
+
+        rules = self.load_rules()
+
+        total_rules = len(rules)
+
+        enabled_rules = len(
+            [r for r in rules if r.enabled]
+        )
+
+        disabled_rules = (
+            total_rules - enabled_rules
+        )
+
+        total_executions = sum(
+            r.execution_count for r in rules
+        )
+
+        average_executions = 0
+
+        if total_rules > 0:
+
+            average_executions = round(
+                total_executions / total_rules,
+                2
+            )
+
+        return {
+            "total_rules": total_rules,
+            "enabled_rules": enabled_rules,
+            "disabled_rules": disabled_rules,
+            "total_executions": total_executions,
+            "average_executions": average_executions
+        }

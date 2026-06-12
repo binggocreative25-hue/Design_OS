@@ -1219,6 +1219,26 @@ def show_automation_dashboard(data):
 
     console.print(table)
 
+def show_automation_analytics(data):
+
+    from rich.table import Table
+
+    table = Table(
+        title="Automation Analytics"
+    )
+
+    table.add_column("Metric")
+    table.add_column("Value")
+
+    for key, value in data.items():
+
+        table.add_row(
+            key.replace("_", " ").title(),
+            str(value)
+        )
+
+    console.print(table)
+
 def run():
 
     db = Database(
@@ -1871,56 +1891,27 @@ def run():
 
             continue
 
-        if brief.lower() == "automation dashboard":
 
-            data = automation_manager.automation_dashboard()
+        if brief.lower() == "automation analytics":
 
-            show_automation_dashboard(data)
+            analytics = (
+                automation_manager.automation_analytics()
+            )
+
+            show_automation_analytics(
+                analytics
+            )
 
             continue
 
-        analytics = scheduler_manager.get_analytics()
-
-        console.print(
-            "\n[bold italic]Scheduler Analytics[/bold italic]"
-        )
-
-        table = Table()
-
-        table.add_column("Metric")
-        table.add_column("Value")
-
-        table.add_row(
-            "Total Tasks",
-            str(analytics["total_tasks"])
-        )
-
-        table.add_row(
-            "Pending Tasks",
-            str(analytics["pending_tasks"])
-        )
-
-        table.add_row(
-            "Completed Tasks",
-            str(analytics["completed_tasks"])
-        )
-
-        table.add_row(
-            "Completion Rate",
-            f'{analytics["completion_rate"]}%'
-        )
-
-        console.print(table)
-
-        continue
-
+        
         if brief.lower().startswith(
             "lanjutkan"
         ):
 
             project = (
-                history_manager.find_project(
-                    brief
+                 history_manager.find_project(
+                     brief
                 )
             )
 
@@ -1958,7 +1949,7 @@ def run():
                     "[yellow]Project tidak ditemukan[/yellow]"
                 )
 
-            console.print()
+                console.print()
 
             continue
 
@@ -1966,7 +1957,7 @@ def run():
             client_manager
             .save_client_if_needed(
                 brief
-            )
+                )
         )
 
         if detected_client:
