@@ -1239,6 +1239,45 @@ def show_automation_analytics(data):
 
     console.print(table)
 
+def show_automation_report(data):
+
+    from rich.table import Table
+
+    dashboard = data["dashboard"]
+    analytics = data["analytics"]
+
+    dashboard_table = Table(
+        title="Automation Dashboard"
+    )
+
+    dashboard_table.add_column("Metric")
+    dashboard_table.add_column("Value")
+
+    for key, value in dashboard.items():
+
+        dashboard_table.add_row(
+            key.replace("_", " ").title(),
+            str(value)
+        )
+
+    console.print(dashboard_table)
+
+    analytics_table = Table(
+        title="Automation Analytics"
+    )
+
+    analytics_table.add_column("Metric")
+    analytics_table.add_column("Value")
+
+    for key, value in analytics.items():
+
+        analytics_table.add_row(
+            key.replace("_", " ").title(),
+            str(value)
+        )
+
+    console.print(analytics_table)
+
 def run():
 
     db = Database(
@@ -1904,7 +1943,18 @@ def run():
 
             continue
 
-        
+        if brief.lower() == "automation report":
+
+            report = (
+                automation_manager.automation_report()
+            )
+
+            show_automation_report(
+                report
+            )
+
+            continue
+
         if brief.lower().startswith(
             "lanjutkan"
         ):

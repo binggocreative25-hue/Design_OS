@@ -178,3 +178,14 @@ class AutomationManager:
             "total_executions": total_executions,
             "average_executions": average_executions
         }
+
+    def automation_report(self):
+
+        dashboard = self.automation_dashboard()
+
+        analytics = self.automation_analytics()
+
+        return {
+            "dashboard": dashboard,
+            "analytics": analytics
+        }   
