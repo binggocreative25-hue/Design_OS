@@ -48,16 +48,18 @@ PHASE 5 Sales Intelligence
 
 PHASE 6 Scheduler System
 
-PHASE 7 WhatsApp
+PHASE 7 Automation Engine
 
-PHASE 8 Notion
+PHASE 8 Whatsapp
 
-PHASE 9 Vector DB
+PHASE 9 Notion
 
-PHASE 10 RAG
+PHASE 10 Vector DB
 
-PHASE 11 Multi Agent
+PHASE 11 RAG
 
-PHASE 12 Auto Follow Up
+PHASE 12 Multi Agent
 
-PHASE 13 Auto Invoice
+PHASE 13 Auto Follow Up
+
+PHASE 14 Auto Invoice

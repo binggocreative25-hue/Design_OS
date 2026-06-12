@@ -32,3 +32,20 @@ Reason:
 
 Future:
 Dapat dipindahkan ke SQLite apabila volume task meningkat.
+
+## Phase 7
+
+Decision:
+Automation Engine menggunakan JSON persistence.
+
+Reason:
+- Konsisten dengan Scheduler System
+- Implementasi sederhana
+- Mudah di-debug
+- Tidak membutuhkan migrasi database
+
+Execution Tracking:
+Setiap rule menyimpan execution_count dan last_execution.
+
+Future:
+Automation rules dapat dipindahkan ke SQLite apabila jumlah rule meningkat signifikan.

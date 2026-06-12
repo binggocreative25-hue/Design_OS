@@ -22,6 +22,7 @@ automation analytics
 automation report
 
 Result:
-PASS / FAIL
+PASS
 
 Tags:
+* [new tag]         phase-7 -> phase-7

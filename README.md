@@ -13,6 +13,8 @@ Autonomous Design Assistant
 - Revenue Forecast
 - Opportunity Ranking
 - Command Router
+- Scheduler System
+- Automation Engine
 
 ### Scheduler
 
@@ -75,3 +77,15 @@ sales pipeline
 sales forecast
 
 sales opportunities
+
+### Automation Engine
+
+Commands:
+
+- automation add
+- automation list
+- automation enable
+- automation disable
+- automation dashboard
+- automation analytics
+- automation report

@@ -46,6 +46,8 @@ main.py
 │   ├── sales_manager.py 
 │   ├── scheduler_manager.py
 │   ├── scheduler_tasks.json
+│   ├── automation_manager.py
+│   ├── automation_rules.json
 │
 ├── models/
 │   ├── director_output.py
